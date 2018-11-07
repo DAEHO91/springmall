@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.example.springmall.sample.mapper.SampleMapper">
+    <select id="selectSampleAll" parameterType="int" resultType="map">
+    	 SELECT sampleNo, sampleId FROM sample ORDER BY sampleNo DESC LIMIT ${startRow}, ${lastRow}
+    </select>
+    
+    <delete id="deleteSample" parameterType="int">
+    	DELETE FROM sample WHERE sampleNo=${value}
+    </delete>
+    
+    <select id="totalRow" resultType="int">
+    	SELECT COUNT(*) FROM sample
+    </select> 
+</mapper>
+
