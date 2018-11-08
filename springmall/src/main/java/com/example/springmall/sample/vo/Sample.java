@@ -5,6 +5,10 @@ public class Sample {
 	private String sampleId;
 	private String samplePw;
 	
+	public Sample() {
+		super();	
+	}
+	
 	public Sample(int sampleNo, String sampleId, String samplePw) {
 		super();
 		this.sampleNo = sampleNo;

@@ -1,6 +1,5 @@
 package com.example.springmall.sample.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +30,24 @@ public class SampleService {
 	public int totalRow() {
 		System.out.println("removeSample method......SampleService.java");
 		return sampleMapper.totalRow();
+	}
+	
+	// 4. 추가
+	public int addSample(Sample sample) {
+		System.out.println("addSample method......SampleService.java");
+		return sampleMapper.insertSample(sample);
+	}
+	
+	// 5-1. 수정을위한 조회
+	public Sample getSample(int sampleNo) {
+		System.out.println("getSample method......SampleService.java");
+		return sampleMapper.selectOne(sampleNo);
+	}
+	
+	// 5-2. 수정
+	public int modifySample(Sample sample) {
+		System.out.println("modifySample method......SampleService.java");
+		return sampleMapper.updateSample(sample);
 	}
 	
 }

@@ -5,15 +5,28 @@
   
 <mapper namespace="com.example.springmall.sample.mapper.SampleMapper">
     <select id="selectSampleAll" parameterType="int" resultType="map">
-    	 SELECT sampleNo, sampleId FROM sample ORDER BY sampleNo DESC LIMIT ${startRow}, ${lastRow}
+    	 SELECT * FROM sample ORDER BY sampleNo DESC LIMIT #{startRow}, #{lastRow}
     </select>
-    
-    <delete id="deleteSample" parameterType="int">
-    	DELETE FROM sample WHERE sampleNo=${value}
-    </delete>
     
     <select id="totalRow" resultType="int">
     	SELECT COUNT(*) FROM sample
     </select> 
+    
+    <select id="selectOne" parameterType="int" resultType="com.example.springmall.sample.vo.Sample">
+    	SELECT * FROM sample WHERE sampleNo=#{sampleNo}
+    </select>
+    
+    <delete id="deleteSample" parameterType="int">
+    	DELETE FROM sample WHERE sampleNo=#{value}
+    </delete>
+    
+    <insert id="insertSample" parameterType="com.example.springmall.sample.vo.Sample">
+    	INSERT INTO sample (sampleId, samplePw) VALUES (#{sampleId}, #{samplePw});
+    </insert>
+    
+    <update id="updateSample" parameterType="com.example.springmall.sample.vo.Sample">
+    	UPDATE sample SET sampleId=#{sampleId}, samplePw=#{samplePw} WHERE sampleNo=#{sampleNo}
+    </update>
+
 </mapper>
 

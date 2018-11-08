@@ -21,6 +21,7 @@
 			<tr>
 				<td>SAMPLE NO</td>
 				<td>SAMPLE ID</td>
+				<td>SAMPLE PW</td>
 				<td>DELETE</td>
 				<td>UPDATE</td>
 			</tr>
@@ -50,7 +51,11 @@
 	
 	<c:set var ="num" value="0"/>
 	<c:forEach var="i" begin="0" end="${lastPage}">
-		<a href="/sample/sampleList?currentPage=${i}">${i}</a>
+		<a href="/sample/sampleList?currentPage=${i}">${i+1}</a>
 	</c:forEach>
+	
+	<br>
+	
+	<a href="/sample/addSample">ADD</a>
 </body>
 </html>
