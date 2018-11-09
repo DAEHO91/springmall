@@ -20,6 +20,9 @@ public interface SampleMapper {
 	int totalRow();
 	// 6. select one
 	Sample selectOne(int sampleNo);
+	// 7. login
+	int loginSample(Sample sample);
+	
 }
 
 

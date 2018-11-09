@@ -50,4 +50,9 @@ public class SampleService {
 		return sampleMapper.updateSample(sample);
 	}
 	
+	public int loginSample(Sample sample) {
+		System.out.println("loginSample method......SampleService.java");
+		return sampleMapper.loginSample(sample);
+	}
+	
 }

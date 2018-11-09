@@ -16,6 +16,10 @@
     	SELECT * FROM sample WHERE sampleNo=#{sampleNo}
     </select>
     
+    <select id="loginSample" parameterType="com.example.springmall.sample.vo.Sample" resultType="int">
+    	SELECT COUNT(*) FROM sample WHERE sampleId=#{sampleId} AND samplePw=#{samplePw}
+    </select>
+    
     <delete id="deleteSample" parameterType="int">
     	DELETE FROM sample WHERE sampleNo=#{value}
     </delete>
@@ -27,6 +31,7 @@
     <update id="updateSample" parameterType="com.example.springmall.sample.vo.Sample">
     	UPDATE sample SET sampleId=#{sampleId}, samplePw=#{samplePw} WHERE sampleNo=#{sampleNo}
     </update>
+    
 
 </mapper>
 

@@ -16,6 +16,21 @@
 
 <body>
 	<h1>SampleList</h1>
+	
+
+	
+	<c:if test="${LOGINID == null}">
+	<form action="/sample/login" method="post">
+		<input type="hidden" name="sampleNo" value="1">
+		<input type="text" name="sampleId" placeholder="ID">
+		<input type="password" name="samplePw" placeholder="PW">
+		<button type="submit">LOGIN</button>
+	</form>
+	</c:if>
+	<c:if test="${LOGINID != null}">
+		${LOGINID}!! LOGIN <br>
+		<a href="/sample/logout">LOGOUT</a>
+	</c:if>
 	<table class="table table-hover">
 		<thead>
 			<tr>
