@@ -33,18 +33,20 @@ public class SampleService {
 	public int removeSample(int sampleNo) {
 		System.out.println("removeSample method......SampleService.java");
 		SampleFile sampleFile = sampleFileMapper.selectSampleFileName(sampleNo);
-		sampleFileMapper.deleteSampleFile(sampleNo);
-
-        File file = new File(sampleFile.getSampleFilePath()+"/"+sampleFile.getSampleFileName()+"."+sampleFile.getSampleFileExt());
-        if(file.exists()){
-            if(file.delete()){
-                System.out.println("DELETE FILE SUCCESS......SampleService.java");
-            }else{
-                System.out.println("DELETE FILE FAIL......SampleService.java");
-            }
-        }else{
-            System.out.println("DELETE DOESNT EXIST......SampleService.java");
-        }
+		if(sampleFile!=null) { // 기존 file업로드가 없는 샘플들 삭제를 위한 null처리
+			sampleFileMapper.deleteSampleFile(sampleNo);
+	
+	        File file = new File(sampleFile.getSampleFilePath()+"/"+sampleFile.getSampleFileName()+"."+sampleFile.getSampleFileExt());
+	        if(file.exists()){
+	            if(file.delete()){
+	                System.out.println("DELETE FILE SUCCESS......SampleService.java");
+	            }else{
+	                System.out.println("DELETE FILE FAIL......SampleService.java");
+	            }
+	        }else{
+	            System.out.println("DELETE DOESNT EXIST......SampleService.java");
+	        }
+		}
 
 		return sampleMapper.deleteSample(sampleNo);
 	}
