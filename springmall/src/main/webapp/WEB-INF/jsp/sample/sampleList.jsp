@@ -11,6 +11,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  
 <!--  jquery CDN -->
 </head>
 
@@ -54,6 +55,10 @@
 		</tbody>
 	</table>
 	
+	
+
+	
+	
 	<c:if test="${0 < currentPage}">
 		<a href="/sample/sampleList?currentPage=${currentPage-1}">이전페이지</a>
 	</c:if>
@@ -64,11 +69,17 @@
 	
 	<br>
 	
-	<c:set var ="num" value="0"/>
-	<c:forEach var="i" begin="0" end="${lastPage}">
-		<a href="/sample/sampleList?currentPage=${i}">${i+1}</a>
-	</c:forEach>
+	<div class="container">
+  	<h2>Pagination</h2>
+	  	<ul class="pagination">
+		<c:set var ="num" value="0"/>
+		<c:forEach var="i" begin="0" end="${lastPage}">
+			<li><a href="/sample/sampleList?currentPage=${i}">${i+1}</a></li>
+		</c:forEach>
+		</ul>
+	</div>
 	
+
 	<br>
 	
 	<a href="/sample/addSample">ADD</a>

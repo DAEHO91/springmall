@@ -26,6 +26,10 @@
     
     <insert id="insertSample" parameterType="com.example.springmall.sample.vo.Sample">
     	INSERT INTO sample (sampleId, samplePw) VALUES (#{sampleId}, #{samplePw});
+    	<!-- keyProperty = column name -->
+    	<selectKey resultType="int" keyProperty="sampleNo" order="AFTER">
+        	SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
     
     <update id="updateSample" parameterType="com.example.springmall.sample.vo.Sample">

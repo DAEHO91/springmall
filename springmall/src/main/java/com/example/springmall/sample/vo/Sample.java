@@ -4,7 +4,8 @@ public class Sample {
 	private int sampleNo;
 	private String sampleId;
 	private String samplePw;
-	
+	private SampleFile sampleFile;
+
 	public Sample() {
 		super();	
 	}
@@ -34,6 +35,13 @@ public class Sample {
 	public void setSamplePw(String samplePw) {
 		this.samplePw = samplePw;
 	}
+	public SampleFile getSampleFile() {
+		return sampleFile;
+	}
+	public void setSampleFile(SampleFile sampleFile) {
+		this.sampleFile = sampleFile;
+	}
+
 	@Override
 	public String toString() {
 		return "Sample [sampleNo=" + sampleNo + ", sampleId=" + sampleId + ", samplePw=" + samplePw + "]";

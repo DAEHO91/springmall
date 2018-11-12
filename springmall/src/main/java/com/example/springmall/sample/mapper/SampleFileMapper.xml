@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.example.springmall.sample.mapper.SampleFileMapper">
+
+    <insert id="insertSampleFile" parameterType="com.example.springmall.sample.vo.SampleFile">
+    	INSERT INTO samplefile (sampleNo, sampleFilePath, sampleFileName, sampleFileExt, sampleFileType, sampleFileSize, sampleFileDate)
+    	 VALUES (#{sampleNo}, #{sampleFilePath}, #{sampleFileName}, #{sampleFileExt}, #{sampleFileType}, #{sampleFileSize}, now());
+    </insert>
+    
+    <delete id="deleteSampleFile" parameterType="int">
+		DELETE FROM samplefile WHERE sampleNo=#{value}     
+    </delete>
+    
+    <select id="selectSampleFileName" parameterType="int" resultType="com.example.springmall.sample.vo.SampleFile">
+    	SELECT * FROM samplefile WHERE sampleNo=#{value}
+    </select>
+
+</mapper>

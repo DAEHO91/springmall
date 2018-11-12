@@ -37,12 +37,14 @@ $(document).ready(function()=>{
 <br>
 <br>
 <body>
-	<form id="addform" class="form-inline" action="/sample/addSample" method="post">
+	<form id="addform" class="form-inline" action="/sample/addSample" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="sampleNo" value="0"> 
 		<label for="ID">SAMPLE ID : </label> 
 		<input type="text" class="form-control" id="sampleId" name="sampleId"> 
 		<label for="pwd">SAMPLE PW : </label> 
 		<input type="text" class="form-control" id="samplePw" name="samplePw"> 
+		<label for="file">FILE UPLOAD : </label> 
+		<input type="file" class="form-control" id="multipartFile" name="multipartFile"> 
 		<button id="add" class="btn btn-primary">add</button>
 	</form>
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.springmall.sample.service.SampleService;
 import com.example.springmall.sample.vo.Sample;
+import com.example.springmall.sample.vo.SampleRequest;
 
 @Controller
 public class SampleController {
@@ -57,9 +58,11 @@ public class SampleController {
 	
 	// 3-2. 입력 액션
 	@RequestMapping(value = "/sample/addSample", method = RequestMethod.POST)
-	public String addSample(@ModelAttribute("sample") Sample sample) { // command 객체... command 객체의 멤버변수 == input 태그 name 속성이 같아야함
+	public String addSample(SampleRequest sampleRequest) { // command 객체... command 객체의 멤버변수 == input 태그 name 속성이 같아야함
 		System.out.println("forward insert action addSamplePOST......SampleController.java");
-		int row = sampleService.addSample(sample);
+		System.out.println("sampleRequest : "+sampleRequest);
+		System.out.println("sampleRequest mulitpartfile : "+sampleRequest.getMultipartFile());
+		int row = sampleService.addSample(sampleRequest);
 		if(row==1) { // 리턴값 1일 시 성공적으로 입력
 			System.out.println("INSERT SUCCESS!......SampleController.java");
 			return "redirect:/sample/sampleList";
