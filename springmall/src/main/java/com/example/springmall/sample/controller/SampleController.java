@@ -31,11 +31,14 @@ public class SampleController {
 		if(totalRow%lastRow!=0) {
 			lastPage+=1;	// 나머지가 있을 경우 짤리지않게 +1로 나머지도 출력
 		}
+		int startPage = (int)(Math.floor(((double)currentPage/10)))*10;
+		System.out.println(startPage+"<<<<<<");
 		
 		List<Sample> sampleList = sampleService.getSampleAll(startRow, lastRow);
 		model.addAttribute("sampleList", sampleList);
 		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("startPage", startPage);
 		return "/sample/sampleList";
 	}
 	

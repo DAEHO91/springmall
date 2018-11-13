@@ -54,30 +54,31 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	
-	
 
-	
-	
-	<c:if test="${0 < currentPage}">
-		<a href="/sample/sampleList?currentPage=${currentPage-1}">이전페이지</a>
-	</c:if>
-	현재 페이지 ${currentPage+1}
-	<c:if test="${currentPage < lastPage}">
-		<a href="/sample/sampleList?currentPage=${currentPage+1}">다음페이지</a>
-	</c:if>
-	
-	<br>
-	
-	<div class="container">
-  	<h2>Pagination</h2>
-	  	<ul class="pagination">
-		<c:set var ="num" value="0"/>
-		<c:forEach var="i" begin="0" end="${lastPage}">
-			<li><a href="/sample/sampleList?currentPage=${i}">${i+1}</a></li>
-		</c:forEach>
-		</ul>
-	</div>
+<div class="container">          
+  	<ul class="pagination">
+  		<c:if test="${startPage!=0}">
+    		<li class="page-item"><a class="page-link" href="/sample/sampleList?currentPage=${startPage-10}">Previous</a></li>
+    	</c:if>
+    	
+    	<c:choose>
+    		<c:when test="${lastPage-(startPage+9)<0}">
+			    <c:forEach var="i" begin="${startPage}" end="${startPage+(lastPage-startPage)}">
+			    	<li class="page-item"><a class="page-link" href="/sample/sampleList?currentPage=${i}">${i+1}</a></li>
+			    </c:forEach>
+		    </c:when>
+			<c:otherwise>
+				<c:forEach var="i" begin="${startPage}" end="${startPage+9}">
+			    	<li class="page-item"><a class="page-link" href="/sample/sampleList?currentPage=${i}">${i+1}</a></li>
+			    </c:forEach>
+			</c:otherwise>
+		</c:choose>
+	    
+	 	<c:if test="${(lastPage-(startPage+10))>=0}">
+	    	<li class="page-item"><a class="page-link" href="/sample/sampleList?currentPage=${startPage+10}">Next</a></li>
+		</c:if>
+ 	</ul>
+</div>
 	
 
 	<br>
