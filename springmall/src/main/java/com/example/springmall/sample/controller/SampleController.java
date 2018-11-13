@@ -31,6 +31,7 @@ public class SampleController {
 		if(totalRow%lastRow!=0) {
 			lastPage+=1;	// 나머지가 있을 경우 짤리지않게 +1로 나머지도 출력
 		}
+		//startPage를 구하기위해 정수변환 후 Math.floor
 		int startPage = (int)(Math.floor(((double)currentPage/10)))*10;
 		System.out.println(startPage+"<<<<<<");
 		

@@ -55,30 +55,38 @@
 		</tbody>
 	</table>
 
-<div class="container">          
-  	<ul class="pagination">
-  		<c:if test="${startPage!=0}">
-    		<li class="page-item"><a class="page-link" href="/sample/sampleList?currentPage=${startPage-10}">Previous</a></li>
-    	</c:if>
-    	
-    	<c:choose>
-    		<c:when test="${lastPage-(startPage+9)<0}">
-			    <c:forEach var="i" begin="${startPage}" end="${startPage+(lastPage-startPage)}">
-			    	<li class="page-item"><a class="page-link" href="/sample/sampleList?currentPage=${i}">${i+1}</a></li>
-			    </c:forEach>
-		    </c:when>
-			<c:otherwise>
-				<c:forEach var="i" begin="${startPage}" end="${startPage+9}">
-			    	<li class="page-item"><a class="page-link" href="/sample/sampleList?currentPage=${i}">${i+1}</a></li>
-			    </c:forEach>
-			</c:otherwise>
-		</c:choose>
-	    
-	 	<c:if test="${(lastPage-(startPage+10))>=0}">
-	    	<li class="page-item"><a class="page-link" href="/sample/sampleList?currentPage=${startPage+10}">Next</a></li>
-		</c:if>
- 	</ul>
-</div>
+	<div class="container">          
+	  	<ul class="pagination">
+
+<!-- 주석 설명의 가정은 11~20페이지 조회시, lastPage 41인 상황-->
+<!-- startPage가 0인상황은 첫페이지만 해당되기때문에 그 외는 이전으로 미리가기 활성화 -->
+	  		<c:if test="${startPage!=0}">
+	    		<li class="page-item"><a class="page-link" href="/sample/sampleList?currentPage=${startPage-10}">Previous</a></li>
+	    	</c:if>
+
+<!-- lastPage(41) - startPage(10)+9 < 0 은 false이기때문에 실행되지않는다 -->
+<!-- 만일 lastPage(41) - startPage(40)+9 <0은 true이기때문에 실행되고 마지막 페이지네이션에 불필요한 페이지네이션까지 출력되지않음 -->
+<!-- otherwise로 빠지게되여 시작은 startPage(10),  끝은 startPage+9(19)까지 10개의 반복문을 실행한다-->
+	    	<c:choose>
+	    		<c:when test="${lastPage-(startPage+9)<0}">
+				    <c:forEach var="i" begin="${startPage}" end="${startPage+(lastPage-startPage)}">
+				    	<li class="page-item"><a class="page-link" href="/sample/sampleList?currentPage=${i}">${i+1}</a></li>
+				    </c:forEach>
+			    </c:when>
+
+				<c:otherwise>
+					<c:forEach var="i" begin="${startPage}" end="${startPage+9}">
+				    	<li class="page-item"><a class="page-link" href="/sample/sampleList?currentPage=${i}">${i+1}</a></li>
+				    </c:forEach>
+				</c:otherwise>
+			</c:choose>
+<!-- lastPage(41)-startPage(10)+10>=0 은 true.. Next페이지 활성화 -->
+<!-- 만약에 lastPage(41) - startPage(40)+10>=0 은 false.. Next페이지 비활성화 -->
+		 	<c:if test="${(lastPage-(startPage+10))>=0}">
+		    	<li class="page-item"><a class="page-link" href="/sample/sampleList?currentPage=${startPage+10}">Next</a></li>
+			</c:if>
+	 	</ul>
+	</div>
 	
 
 	<br>
@@ -86,3 +94,17 @@
 	<a href="/sample/addSample">ADD</a>
 </body>
 </html>
+
+
+		
+
+
+
+
+
+
+
+
+
+
+		    
