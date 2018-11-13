@@ -13,6 +13,7 @@
     </select> 
     
     <select id="selectOne" parameterType="int" resultType="com.example.springmall.sample.vo.Sample">
+
     	SELECT * FROM sample WHERE sampleNo=#{sampleNo}
     </select>
     

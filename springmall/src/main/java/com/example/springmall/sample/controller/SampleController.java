@@ -33,7 +33,6 @@ public class SampleController {
 		}
 		//startPage를 구하기위해 정수변환 후 Math.floor
 		int startPage = (int)(Math.floor(((double)currentPage/10)))*10;
-		System.out.println(startPage+"<<<<<<");
 		
 		List<Sample> sampleList = sampleService.getSampleAll(startRow, lastRow);
 		model.addAttribute("sampleList", sampleList);
@@ -67,6 +66,7 @@ public class SampleController {
 		System.out.println("sampleRequest : "+sampleRequest);
 		System.out.println("sampleRequest mulitpartfile : "+sampleRequest.getMultipartFile());
 		int row = sampleService.addSample(sampleRequest);
+		
 		if(row==1) { // 리턴값 1일 시 성공적으로 입력
 			System.out.println("INSERT SUCCESS!......SampleController.java");
 			return "redirect:/sample/sampleList";

@@ -23,6 +23,7 @@ public class SampleService {
 	private SampleMapper sampleMapper;
 	@Autowired
 	private SampleFileMapper sampleFileMapper;
+
 	// 1 샘플리스트
 	public List<Sample> getSampleAll(int startRow, int lastRow){
 		System.out.println("getSampleAll method......SampleService.java");
@@ -35,8 +36,8 @@ public class SampleService {
 		SampleFile sampleFile = sampleFileMapper.selectSampleFileName(sampleNo);
 		if(sampleFile!=null) { // 기존 file업로드가 없는 샘플들 삭제를 위한 null처리
 			sampleFileMapper.deleteSampleFile(sampleNo);
-	
-	        File file = new File(sampleFile.getSampleFilePath()+"/"+sampleFile.getSampleFileName()+"."+sampleFile.getSampleFileExt());
+			System.out.println(sampleFile.getSampleFilePath()+File.separator+"uploads"+File.separator+sampleFile.getSampleFileName()+"."+sampleFile.getSampleFileExt()+"<<<<<<<<<<<<<");
+	        File file = new File(sampleFile.getSampleFilePath()+File.separator+"uploads"+File.separator+sampleFile.getSampleFileName()+"."+sampleFile.getSampleFileExt());
 	        if(file.exists()){
 	            if(file.delete()){
 	                System.out.println("DELETE FILE SUCCESS......SampleService.java");
@@ -74,31 +75,53 @@ public class SampleService {
 		SampleFile sampleFile = new SampleFile();
 		MultipartFile multipartFile = sampleRequest.getMultipartFile();
 		// 1. SampleFileNo : AI	
+		
 		// 2. SampleNo
-		System.out.println(sample.getsampleNo()+"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 		sampleFile.setSampleNo(sample.getsampleNo());
+		
 		// 3. SampleFileExt
 		System.out.println(multipartFile.getOriginalFilename()+"......SampleService.java");
 		String originalFileName = multipartFile.getOriginalFilename();
 		String ext = originalFileName.substring(0); // subString 채우기
 		sampleFile.setSampleFileExt(ext);
+		
 		// 4. SampleFileName
 		String fileName = UUID.randomUUID().toString();
 		sampleFile.setSampleFileName(fileName);
+		
 		// 5. SampleFilePath
-		String path = "c:\\uploads";
+		File f = new File("");
+		System.out.println(f.getAbsolutePath()+"AbsolutePath......SampleService.java");
+		String path = f.getAbsolutePath();
 		sampleFile.setSampleFilePath(path);
+		
 		// 6. SampleFileType
 		sampleFile.setSampleFileType(multipartFile.getContentType());
+		
 		// 7. sampleFileSize
 		sampleFile.setSampleFileSize(multipartFile.getSize());
+		
 		// 원하는 이름의 빈파일 하나 생성
-		try {
-			multipartFile.transferTo(new File(path+"\\"+fileName+"."+ext));
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		File file = new File(path+File.separator+"uploads");
+		if(file.exists()) {
+			System.out.println("transferTo "+path+"......Samplerservice.java");
+			try {
+				multipartFile.transferTo(new File(path+File.separator+"uploads"+File.separator+fileName+"."+ext));
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println("transferTo "+path+"......Samplerservice.java");
+			file.mkdirs();
+			try {
+				multipartFile.transferTo(new File(path+File.separator+"uploads"+File.separator+fileName+"."+ext));
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return sampleFileMapper.insertSampleFile(sampleFile);
