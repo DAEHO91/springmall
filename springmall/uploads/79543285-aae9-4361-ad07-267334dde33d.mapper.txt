@@ -1,0 +1,83 @@
+MemberMapper.xml--------------------------------------------------------------------------------------------------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.mymall.dao.MemberMapper">
+	<select id = "login" parameterType="com.test.mymall.vo.Member" resultType="com.test.mymall.vo.Member">
+		SELECT no, id, level FROM member WHERE id=#{id} AND pw=#{pw}
+	</select>
+	
+	<select id = "selectMember" parameterType="String" resultType="com.test.mymall.vo.Member">
+		SELECT no, id, pw, level FROM member WHERE id=#{id}
+	</select>
+	
+	<select id = "deleteCheckMember" parameterType="com.test.mymall.vo.Member" resultType="int">
+		SELECT count(*) FROM member WHERE id=#{id} AND pw=#{pw}
+	</select>
+	
+	<insert id = "insertMember" parameterType="com.test.mymall.vo.Member" >
+		INSERT INTO member (id, pw, level) VALUES (#{id}, #{pw}, #{level})
+	</insert>
+	
+	<update id = "updateMember" parameterType="com.test.mymall.vo.Member">
+		Update member SET pw=#{pw}, level=#{level} WHERE no=#{no} AND id=#{id}
+	</update>
+	
+	<delete id = "deleteMember" parameterType="com.test.mymall.vo.Member">
+		DELETE FROM member WHERE id=#{id}
+	</delete>
+	
+	
+</mapper>
+
+
+
+
+
+
+ItemMapper.xml--------------------------------------------------------------------------------------------------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.mymall.dao.ItemMapper">
+	<!-- itemList에서 리턴을 vo.item으로 설정하였을떄 값이 들어가지않음.. -->
+	<select id = "itemList" resultType="map">
+		SELECT * FROM item
+	</select>
+	
+</mapper>
+
+
+
+
+
+MemberItemMapper.xml--------------------------------------------------------------------------------------------------
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.mymall.dao.MemberItemMapper">
+	<delete id="deleteMemberItem" parameterType="com.test.mymall.vo.Member">
+		DELETE FROM member_item WHERE member_no=#{no}
+	</delete>
+	
+	<insert id="order" parameterType="com.test.mymall.vo.MemberItem">
+		INSERT INTO member_item (member_no, item_no, order_date) VALUE (#{member_no}, #{item_no}, now())
+	</insert>
+	
+	<select id="userOrderList" parameterType="com.test.mymall.vo.Member" resultType="map">
+		SELECT mi.no, m.id, mi.order_date, mi.item_no, i.name, i.price FROM member_item mi INNER JOIN item i ON mi.item_no = i.no INNER JOIN member m ON mi.member_no = m.no WHERE mi.member_no = #{no}
+	</select>
+	
+	<select id="adminOrderList"  parameterType="com.test.mymall.vo.Member" resultType="map">
+		SELECT mi.no, m.id, mi.order_date, mi.item_no, i.name, i.price FROM member_item mi INNER JOIN item i ON mi.item_no = i.no INNER JOIN member m ON mi.member_no = m.no
+	</select>
+
+	
+</mapper>

@@ -13,8 +13,9 @@
     </select> 
     
     <select id="selectOne" parameterType="int" resultType="com.example.springmall.sample.vo.Sample">
+		SELECT s.sampleId as sampleId, s.samplePw as samplePw, f.sampleFileExt as sampleFileExt FROM sample as s INNER JOIN samplefile as f 
+		on s.sampleNo=f.sampleNo WHERE s.sampleNo=#{sampleNo}
 
-    	SELECT * FROM sample WHERE sampleNo=#{sampleNo}
     </select>
     
     <select id="loginSample" parameterType="com.example.springmall.sample.vo.Sample" resultType="int">
